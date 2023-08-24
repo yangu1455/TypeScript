@@ -23,6 +23,10 @@ function App() {
     ])
   }
 
+  const onClickDelete = (id: number) => {
+    setTodolist(todolist.filter((todo) => todo.id !== id));
+  }
+
   useEffect(()=>{
     console.log(todolist);
   }, [todolist])
@@ -33,7 +37,7 @@ function App() {
       <Editor onClickAdd={onClickAdd}/>
       <div>
         {todolist.map((todo)=>(
-          <TodoItem key={todo.id} {...todo} />
+          <TodoItem key={todo.id} {...todo} onClickDelete={onClickDelete}/>
         ))}
       </div>
     </>
