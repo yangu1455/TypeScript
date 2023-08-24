@@ -1,18 +1,14 @@
 import { useState, useRef, useEffect } from 'react'
 import './App.css'
 import Editor from './components/Editor';
-
-// todolist에 담길 todo 객체
-interface Todo {
-  id: number;
-  content: string;
-}
+import { Todo } from './types';
+import TodoItem from './components/TodoItem';
 
 function App() {
   // todolist의 타입은 Todo의 배열 타입
   const [todolist, setTodolist] = useState<Todo[]>([]);
   
-  const idRef = useRef(0);
+  const idRef = useRef(1);
 
   // 추가 버튼을 누를 때 실행 시킬 것
   // setTodolist 호출때문에 옮기지 않는다.
@@ -35,6 +31,11 @@ function App() {
     <>
       <h1>Todo</h1>
       <Editor onClickAdd={onClickAdd}/>
+      <div>
+        {todolist.map((todo)=>(
+          <TodoItem key={todo.id} {...todo} />
+        ))}
+      </div>
     </>
   )
 }
