@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useReducer } from 'react'
+import React, { useContext, useRef, useEffect, useReducer } from 'react'
 import './App.css'
 import Editor from './components/Editor';
 import { Todo } from './types';
@@ -27,13 +27,26 @@ function reducer(state: Todo[], action: Action) {
   }
 }
 
+// createContext는 한 개의 타입 변수를 사용하며, 하나의 매개 변수를 필수로 받고 있는 제네릭 함수
+export const TodoStateContext = React.createContext<Todo[] | null>(null);
+export const TodoDispatchContext = React.createContext<{
+  onClickAdd : (text: string) => void;
+  onClickDelete : (id: number) => void;
+} | null>(null);
+
+export function useTodoDispatch(){
+  const dispatch = useContext(TodoDispatchContext);
+  if (!dispatch) throw new Error("TodoDispatchContext에 문제가 있다");
+  return dispatch;
+}
+
 function App() {
   // todolist의 타입은 Todo의 배열 타입
   const [todolist, dispatch] = useReducer(reducer, []);
   
   const idRef = useRef(1);
 
-  // 추가 버튼을 누를 때 실행 시킬 것
+  // todo 추가
   // setTodolist 호출때문에 옮기지 않는다.
   const onClickAdd = (text: string) => {
     dispatch({
@@ -46,6 +59,7 @@ function App() {
     })
   }
 
+  // todo 삭제
   const onClickDelete = (id: number) => {
     dispatch({
       type: "DELETE",
@@ -60,12 +74,21 @@ function App() {
   return (
     <>
       <h1>Todo</h1>
-      <Editor onClickAdd={onClickAdd}/>
-      <div>
-        {todolist.map((todo)=>(
-          <TodoItem key={todo.id} {...todo} onClickDelete={onClickDelete}/>
-        ))}
-      </div>
+      <TodoStateContext.Provider value={todolist}>
+        <TodoDispatchContext.Provider
+          value={{
+            onClickAdd,
+            onClickDelete,
+          }}
+        >
+          <Editor/>
+          <div>
+            {todolist.map((todo)=>(
+              <TodoItem key={todo.id} {...todo}/>
+            ))}
+          </div>
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </>
   )
 }

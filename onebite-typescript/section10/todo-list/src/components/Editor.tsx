@@ -1,11 +1,9 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { TodoDispatchContext, useTodoDispatch } from '../App';
 
-// props 타입 정의
-interface Props {
-  onClickAdd: (text: string) => void;
-}
+export default function Editor() {
+  const dispatch = useTodoDispatch();
 
-export default function Editor(props: Props) {
   const [text, setText] = useState("");
 
   // 여기서 e의 타입은 이미 정의된 것이 있기 때문에 그대로 가지고 오면 됨
@@ -14,7 +12,7 @@ export default function Editor(props: Props) {
   };
 
   const onClickButton = () => {
-    props.onClickAdd(text);
+    dispatch.onClickAdd(text);
     setText("");
   };
 
