@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react'
-import { TodoDispatchContext, useTodoDispatch } from '../App';
+import { useState } from 'react'
+import { useTodoDispatch } from '../App';
 
 export default function Editor() {
   const dispatch = useTodoDispatch();

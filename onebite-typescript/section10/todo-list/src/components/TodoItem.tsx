@@ -13,7 +13,7 @@ export default function TodoItem(props: Props) {
 
   return (
     <div>
-      <p>{props.id}. {props.content}</p>
+      <p>{props.content}</p>
       <button onClick={onClickButton}>삭제</button>
     </div>
   )
