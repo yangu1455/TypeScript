@@ -1,14 +1,13 @@
-import CommentList from './components/CommentList';
-import CommentForm from './components/CommentForm';
+import Comment from './components/Comment';
+// import CommentList from './components/CommentList';
 
 const App = () => {
   return (
-    <body>
-      <h1>댓글 기능 예제</h1>
-      <CommentForm />
-      <CommentList />
-    </body>
+    <div>
+      <Comment />
+    </div>
   );
 };
 
 export default App;
+
