@@ -1,5 +1,5 @@
 import Comment from './components/Comment';
-// import CommentList from './components/CommentList';
+import './App.css';
 
 const App = () => {
   return (

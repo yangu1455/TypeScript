@@ -1,0 +1,12 @@
+li {
+  margin: 1.5rem 0;
+}
+
+li p {
+  margin: 0.8rem;
+}
+
+.comment-profile-box {
+  display: flex;
+}
+

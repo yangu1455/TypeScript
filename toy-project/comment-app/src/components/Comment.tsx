@@ -1,13 +1,18 @@
 // Comment.tsx
 import { useState, useEffect } from 'react';
 import { commentType } from "../types";
+import './comment.css'
 
 const dateNow = new Date();
 const today = dateNow.toISOString().slice(0, 10);
 
 const Comment = (): JSX.Element => {
+  // text를 받아오는 고런..
   const [newText, setNewText] = useState('');
   const [comments, setComments] = useState<commentType[]>([]);
+  // 수정 기능을 위해 대상 댓글의 ID 받아오는..
+  const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
+
 
   useEffect(() => {
     // JSON 파일을 비동기적으로 로드
@@ -20,6 +25,11 @@ const Comment = (): JSX.Element => {
   }, []);
 
   const handleCommentSubmit = () => {
+    if (newText.length === 0) {
+      // 댓글 내용이 비어있으면 등록하지 않음
+      return;
+    }
+
     // text 제외한 모든 고정된 값을 가진 댓글을 생성
     const newComment = {
       id: comments.length + 1,
@@ -59,25 +69,84 @@ const Comment = (): JSX.Element => {
 
   };
 
+  // const editCommentSubmit = (id: number, newText: string) => {
+  //   const updatedComments = comments.filter((comment) => comment.id === id);
+  //   setNewText(updatedComments[0].text);
+  // }
+
+  const editCommentSubmit = (id: number, text: string) => {
+    setEditingCommentId(id);
+    setNewText(text);
+  };
+
+  const handleConfirmEdit = () => {
+    if (newText.length === 0 || editingCommentId === null) {
+      // 댓글 내용이 비어있거나 수정 대상 댓글이 없으면 수정하지 않음
+      return;
+    }
+  
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === editingCommentId) {
+        return {
+          ...comment,
+          // 새로 받을 text
+          text: newText,
+          // 수정된 시간
+          timestamp: new Date().toLocaleString(),
+        };
+      }
+      return comment;
+    });
+
+    setComments(updatedComments);
+    setNewText('');
+    setEditingCommentId(null);
+  };
+
+  const deleteCommentSubmit = (id: number) => {
+    try {
+      const updatedComments = comments.filter((comment) => comment.id !== id);
+      setComments(updatedComments);
+    } catch (error) {
+      console.error('에러 발생 : ', error);
+    }    
+  };
+
   return (
     <div>
       <h1>{today}</h1>
-      <textarea
-        placeholder="댓글을 입력하세요"
-        value={newText}
-        onChange={(e) => setNewText(e.target.value)}
-      />
-      <button onClick={handleCommentSubmit}>댓글 생성</button>
-      
       <div>
         <ul>
           {comments.map((comment) => (
             <li key={comment.id}>
-              <img className='comm_pf_pic' src={comment.pf_pic} alt="프로필 사진" />
-              {comment.text}
+              <div className='comment-profile-box'>
+                <img className='comm_pf_pic' src={comment.pf_pic} alt="프로필 사진" />
+                <p>{comment.name}</p>
+              </div>
+              <p>{comment.text}</p>
+              {editingCommentId === comment.id ? (
+                // 수정 모드 일때
+                <button onClick={() => setEditingCommentId(null)}>취소</button>
+              ) : ( 
+                // 수정 모드 아닐 때
+                <button onClick={() => editCommentSubmit(comment.id, comment.text)}>수정</button>
+              )}
+              <button onClick={() => deleteCommentSubmit(comment.id)}>삭제</button>
             </li>
           ))}
         </ul>
+      </div>
+      <div>
+        <input
+          type='text'
+          placeholder="댓글을 입력하세요"
+          value={newText}
+          onChange={(e) => setNewText(e.target.value)}
+        />
+        {/* 수정 모드일 경우에는 확인 & 수정 기능 / 수정 모드 아닐 경우에는 댓글 생성 & 댓글 생성 기능 */}
+        <button onClick={editingCommentId !== null ? handleConfirmEdit : handleCommentSubmit}>
+          {editingCommentId !== null ? '확인' : '댓글 생성'}
+        </button>
       </div>
     </div>
   );
