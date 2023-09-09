@@ -113,31 +113,34 @@ const Comment = (): JSX.Element => {
   };
 
   return (
-    <div>
+    <div className='comment'>
       <h1>{today}</h1>
-      <div>
-        <ul>
-          {comments.map((comment) => (
-            <li key={comment.id}>
-              <div className='comment-profile-box'>
-                <img className='comm_pf_pic' src={comment.pf_pic} alt="프로필 사진" />
-                <p>{comment.name}</p>
-              </div>
+      <ul>
+        {comments.map((comment) => (
+          <li key={comment.id}>
+            <div className='comment-profile-box'>
+              <img className='comm_pf_pic' src={comment.pf_pic} alt="프로필 사진" />
+              <p>{comment.name}</p>
+            </div>
+            <div className='comment-content'>
               <p>{comment.text}</p>
-              {editingCommentId === comment.id ? (
-                // 수정 모드 일때
-                <button onClick={() => setEditingCommentId(null)}>취소</button>
-              ) : ( 
-                // 수정 모드 아닐 때
-                <button onClick={() => editCommentSubmit(comment.id, comment.text)}>수정</button>
-              )}
-              <button onClick={() => deleteCommentSubmit(comment.id)}>삭제</button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
+              <div>
+                {editingCommentId === comment.id ? (
+                  // 수정 모드 일때
+                  <button onClick={() => setEditingCommentId(null)}>취소</button>
+                ) : ( 
+                  // 수정 모드 아닐 때
+                  <button onClick={() => editCommentSubmit(comment.id, comment.text)}>수정</button>
+                )}
+                <button onClick={() => deleteCommentSubmit(comment.id)}>삭제</button>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div className='comment-input-box'>
         <input
+          className='comment-input'
           type='text'
           placeholder="댓글을 입력하세요"
           value={newText}

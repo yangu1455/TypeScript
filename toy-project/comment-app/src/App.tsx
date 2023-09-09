@@ -49,7 +49,7 @@ const App = () => {
   return (
     <div className='content'>
       <RouterProvider router={router}>
-        <div className='content'>
+        <div>
           <Navbar />
           <Route path="/" element={<Home />} />
           <Route path="/study-rules" element={<StudyRules />} />
@@ -61,8 +61,6 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
         </div>
       </RouterProvider>
-      
-      
     </div>
   );
 };

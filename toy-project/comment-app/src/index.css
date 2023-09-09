@@ -45,7 +45,9 @@ button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
+  margin-top: 0.2em;
+  margin-left: 0.5em;
+  font-size: 0.7em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
@@ -71,6 +73,9 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  li {
+    border-color: black;
+  }
 }
 
 ul {
@@ -79,6 +84,6 @@ ul {
 
 .comm_pf_pic {
   width: 3em;
-  border-radius: 50px;
-  margin-right: 10px;
+  border-radius: 3em;
+  margin-right: 0.5em;
 }
