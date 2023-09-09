@@ -13,6 +13,7 @@ import SignUp from './pages/SignUp';
 const router = createBrowserRouter([
   {
     path: '/',
+    errorElement: <div>잘못된 주소입니다. 다시 입력해주세요! 🫠</div>,
     element: <Home />,
   },
   {
@@ -47,20 +48,8 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <div className='content'>
-      <RouterProvider router={router}>
-        <div>
-          <Navbar />
-          <Route path="/" element={<Home />} />
-          <Route path="/study-rules" element={<StudyRules />} />
-          <Route path="/members" element={<Members />} />
-          <Route path="/todo" element={<ToDo />} />
-          <Route path="/stop-watch" element={<StopWatch />} />
-          <Route path="/my-page" element={<MyPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
-        </div>
-      </RouterProvider>
+    <div>
+      <RouterProvider router={router}/>
     </div>
   );
 };

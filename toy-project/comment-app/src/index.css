@@ -30,7 +30,7 @@ a:hover {
 }
 
 body {
-  margin: 5em;
+  margin: 0 5em;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;

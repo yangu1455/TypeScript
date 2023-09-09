@@ -1,31 +1,32 @@
 import { Link } from 'react-router-dom';
+import './Navbar.css'
 
-function Navbar() {
+const Navbar = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/mypage">유저 사진인지 이름인지 뭔지 들어올 자리</Link>
+    <nav className='nav_nav'>
+      <ul className='nav_ul'>
+        <li className='nav_li'>
+          <Link to="/">Talking Potato 🥔</Link>
         </li>
-        <li>
-          <Link to="/">Talking Potato</Link>
+        <li className='nav_li'>
+          <Link to="/study-rules">스터디 규칙 📝</Link>
         </li>
-        <li>
-          <Link to="/study-rules">스터디 규칙</Link>
+        <li className='nav_li'>
+          <Link to="/members">멤버 소개 🧍🏻‍♂️</Link>
         </li>
-        <li>
-          <Link to="/members">멤버 소개</Link>
+        <li className='nav_li'>
+          <Link to="/todo">To-do ☑️</Link>
         </li>
-        <li>
-          <Link to="/todo">To-do</Link>
-        </li>
-        <li>
+        <li className='nav_li'>
           <Link to="/stop-watch">⏳</Link>
         </li>
       </ul>
-      <ul>
-        <li>
-          <Link to='/SignUp'>Sign Up</Link>
+      <ul className='nav_ul'>
+        <li className='nav_li'>
+          <Link to="/MyPage">유저 사진인지</Link>
+        </li>
+        <li className='nav_li'>
+          <Link to='/SignUp'>Sign Up ⭐️</Link>
         </li>
       </ul>
     </nav>
