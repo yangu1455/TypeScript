@@ -5,3 +5,8 @@ export interface commentType {
   timestamp: string,
   pf_pic: string,
 }
+
+export interface RouterItem {
+  path: string,
+  element: JSX.Element
+}
