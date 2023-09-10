@@ -70,10 +70,7 @@ const Comment = (): JSX.Element => {
 
   };
 
-  // const editCommentSubmit = (id: number, newText: string) => {
-  //   const updatedComments = comments.filter((comment) => comment.id === id);
-  //   setNewText(updatedComments[0].text);
-  // }
+
 
   const editCommentSubmit = (id: number, text: string) => {
     setEditingCommentId(id);
@@ -114,7 +111,7 @@ const Comment = (): JSX.Element => {
   };
 
   // 와 이거 '~분 전'으로 표시되는 함수 블로그에서 가지고 옴 감사합니다...
-  const elapsedTime = (date: number): string => {
+  const elapsedTime = (date: Date): string => {
     const start = new Date(date);
     const end = new Date();
 
