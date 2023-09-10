@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       { path: '/stop-watch', element: <StopWatch /> },
       { path: '/my-page', element: <MyPage /> },
       { path: '/login', element: <Login /> },
-      { path: '/sign-up', element: <SignUp /> },
+      { path: '/signup', element: <SignUp /> },
 		],
 	},
 ]);

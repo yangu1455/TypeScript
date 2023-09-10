@@ -26,7 +26,10 @@ const Navbar = () => {
           <Link className="nav_a" to="/my-page">유저 사진인지</Link>
         </li>
         <li className='nav_li'>
-          <Link className="nav_a" to='/sign-up'>Sign Up ⭐️</Link>
+          <Link className="nav_a" to='/login'>로그인</Link>
+        </li>
+        <li className='nav_li'>
+          <Link className="nav_a" to='/signup'>회원가입 ⭐️</Link>
         </li>
       </ul>
     </nav>
