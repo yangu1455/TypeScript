@@ -13,15 +13,9 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      {/* <Route path="/" element={<Home />} />
-      <Route path="/study-rules" element={<StudyRules />} />
-      <Route path="/members" element={<Members />} />
-      <Route path="/todo" element={<ToDo />} />
-      <Route path="/stop-watch" element={<StopWatch />} />
-      <Route path="/my-page" element={<MyPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/sign-up" element={<SignUp />} /> */}
-      <Comment />
+      <main>
+        <Comment />
+      </main>
     </div>
   )
 }

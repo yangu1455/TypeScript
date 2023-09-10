@@ -1,8 +1,12 @@
 import React from 'react'
+import Navbar from '../components/Navbar';
 
 const Members = () => {
   return (
-    <div>members</div>
+    <div>
+      <Navbar />
+      members
+    </div>
   )
 }
 

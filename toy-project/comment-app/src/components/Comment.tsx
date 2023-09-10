@@ -35,12 +35,13 @@ const Comment = (): JSX.Element => {
       id: comments.length + 1,
       name: 'yangu1455',
       text: newText,
-      timestamp: new Date().toLocaleString(),
+      timestamp: new Date(),
       pf_pic: "./images/킹감자.jpeg",
     };
 
     // 새로운 댓글을 기존 댓글 목록에 추가
     setComments([...comments, newComment]);
+    console.log(newComment);
     setNewText('');
 
     // // JSON 파일을 불러와서 기존 데이터에 새로운 댓글을 추가합니다.
@@ -92,7 +93,7 @@ const Comment = (): JSX.Element => {
           // 새로 받을 text
           text: newText,
           // 수정된 시간
-          timestamp: new Date().toLocaleString(),
+          timestamp: new Date(),
         };
       }
       return comment;
@@ -112,15 +113,40 @@ const Comment = (): JSX.Element => {
     }    
   };
 
+  // 와 이거 '~분 전'으로 표시되는 함수 블로그에서 가지고 옴 감사합니다...
+  const elapsedTime = (date: number): string => {
+    const start = new Date(date);
+    const end = new Date();
+
+    const seconds = Math.floor((end.getTime() - start.getTime()) / 1000);
+    if (seconds < 60) return '방금 전';
+
+    const minutes = seconds / 60;
+    if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+
+    const hours = minutes / 60;
+    if (hours < 24) return `${Math.floor(hours)}시간 전`;
+
+    const days = hours / 24;
+    if (days < 7) return `${Math.floor(days)}일 전`;
+
+    return `${start.toLocaleDateString()}`;
+  };
+
   return (
     <div className='comment'>
       <h1>{today}</h1>
       <ul>
         {comments.map((comment) => (
           <li key={comment.id}>
-            <div className='comment-profile-box'>
-              <img className='comm_pf_pic' src={comment.pf_pic} alt="프로필 사진" />
-              <p>{comment.name}</p>
+            <div className='comment-profile-timestamp-box'>
+              <div className='comment-profile-box'>
+                <img className='comm_pf_pic' src={comment.pf_pic} alt="프로필 사진" />
+                <p>{comment.name}</p>
+              </div>
+              <div>
+                <p>{elapsedTime(comment.timestamp)}</p>
+              </div>
             </div>
             <div className='comment-content'>
               <p>{comment.text}</p>

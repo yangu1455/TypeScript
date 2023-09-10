@@ -6,27 +6,27 @@ const Navbar = () => {
     <nav className='nav_nav'>
       <ul className='nav_ul'>
         <li className='nav_li'>
-          <Link to="/">Talking Potato 🥔</Link>
+          <Link className="nav_a" to="/">Talking Potato 🥔</Link>
         </li>
         <li className='nav_li'>
-          <Link to="/study-rules">스터디 규칙 📝</Link>
+          <Link className="nav_a" to="/study-rules">스터디 규칙 📝</Link>
         </li>
         <li className='nav_li'>
-          <Link to="/members">멤버 소개 🧍🏻‍♂️</Link>
+          <Link className="nav_a" to="/members">멤버 소개 🧍🏻‍♂️</Link>
         </li>
         <li className='nav_li'>
-          <Link to="/todo">To-do ☑️</Link>
+          <Link className="nav_a" to="/todo">To-do ☑️</Link>
         </li>
         <li className='nav_li'>
-          <Link to="/stop-watch">⏳</Link>
+          <Link className="nav_a" to="/stop-watch">⏳</Link>
         </li>
       </ul>
       <ul className='nav_ul'>
         <li className='nav_li'>
-          <Link to="/MyPage">유저 사진인지</Link>
+          <Link className="nav_a" to="/my-page">유저 사진인지</Link>
         </li>
         <li className='nav_li'>
-          <Link to='/SignUp'>Sign Up ⭐️</Link>
+          <Link className="nav_a" to='/sign-up'>Sign Up ⭐️</Link>
         </li>
       </ul>
     </nav>

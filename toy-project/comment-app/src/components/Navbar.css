@@ -16,13 +16,13 @@
   padding: 0 0.8rem;
 }
 
-a {
+.nav_a {
   color: white;
 }
 
 /* 밝은 버전일 때 */
 @media (prefers-color-scheme: light) {
-  a {
+  .nav_a {
     color: black;
   }
 }

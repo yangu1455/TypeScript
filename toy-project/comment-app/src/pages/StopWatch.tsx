@@ -1,8 +1,12 @@
 import React from 'react'
+import Navbar from '../components/Navbar';
 
 const StopWatch = () => {
   return (
-    <div>StopWatch</div>
+    <div>
+      <Navbar />
+      StopWatch
+    </div>
   )
 }
 

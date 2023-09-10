@@ -24,6 +24,11 @@ li p {
   margin: 0.7rem 0.7rem 0.2rem 0.7rem;
 }
 
+.comment-profile-timestamp-box {
+  display: flex;
+  justify-content: space-between;
+}
+
 .comment-profile-box {
   display: flex;
 }

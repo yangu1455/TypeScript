@@ -10,6 +10,24 @@ import MyPage from './pages/MyPage';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 
+// const router = createBrowserRouter([
+// 	{
+// 		path: '/',
+// 		element: <Root />,
+// 		errorElement: <div>잘못된 주소입니다. 다시 입력해주세요! 🫠</div>,
+// 		children: [
+// 			 { index: true, element: <Home /> },
+// 			 { path: '/study-rules', element: <StudyRules /> },
+//       { path: '/members', element: <Members /> },
+//       { path: '/todo', element: <ToDo /> },
+//       { path: '/stop-watch', element: <StopWatch /> },
+//       { path: '/my-page', element: <MyPage /> },
+//       { path: '/login', element: <Login /> },
+//       { path: '/sign-up', element: <SignUp /> },
+// 		],
+// 	},
+// ]);
+
 const router = createBrowserRouter([
   {
     path: '/',
