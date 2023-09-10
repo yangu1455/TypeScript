@@ -1,5 +1,5 @@
 // Comment.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { commentType } from "../types";
 import './comment.css'
 
@@ -12,7 +12,8 @@ const Comment = (): JSX.Element => {
   const [comments, setComments] = useState<commentType[]>([]);
   // 수정 기능을 위해 대상 댓글의 ID 받아오는..
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
-
+  // 댓글 내용 포커싱을 위한 useRef
+  const CommentTextInput: React.MutableRefObject< | HTMLInputElement | undefined> = useRef();
 
   useEffect(() => {
     // JSON 파일을 비동기적으로 로드
@@ -26,7 +27,10 @@ const Comment = (): JSX.Element => {
 
   const handleCommentSubmit = () => {
     if (newText.length === 0) {
-      // 댓글 내용이 비어있으면 등록하지 않음
+      // 댓글 내용이 비어있으면 input창으로 포커싱하고 등록하지 않음
+      if (CommentTextInput.current) {
+        CommentTextInput.current.focus();
+      }     
       return;
     }
 
@@ -80,6 +84,9 @@ const Comment = (): JSX.Element => {
   const handleConfirmEdit = () => {
     if (newText.length === 0 || editingCommentId === null) {
       // 댓글 내용이 비어있거나 수정 대상 댓글이 없으면 수정하지 않음
+      if (CommentTextInput.current) {
+        CommentTextInput.current.focus();
+      }
       return;
     }
   
@@ -163,6 +170,7 @@ const Comment = (): JSX.Element => {
       </ul>
       <div className='comment-input-box'>
         <input
+          ref={CommentTextInput as React.MutableRefObject<HTMLInputElement>}
           className='comment-input'
           type='text'
           placeholder="댓글을 입력하세요"
