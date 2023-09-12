@@ -51,13 +51,15 @@ const Comment = (): JSX.Element => {
     setNewText('');
   };
 
+  // 수정버튼을 누르면
   const editCommentSubmit = (id: number, text: string) => {
     setEditingCommentId(id);
     setNewEditText(text);
-    // 안먹힘..
-    // if (CommentEditTextInput.current) {
-    //   CommentEditTextInput.current.focus();
-    // }
+    console.log(CommentEditTextInput.current); // null
+    // 여기 적용이 안된다 왜일까!
+    if (CommentEditTextInput.current) {
+      CommentEditTextInput.current.focus();
+    }
   };
 
   const handleConfirmEdit = () => {
@@ -131,8 +133,6 @@ const Comment = (): JSX.Element => {
                 <p>{elapsedTime(comment.timestamp)}</p>
               </div>
             </div>
-
-
             <div className='comment-edit-content'>
               {/* // 수정 모드 일때 */}
               {editingCommentId === comment.id ? (
