@@ -20,7 +20,7 @@ const Tictoc = () => {
     // 시간 측정 중이 아니라면!
     if (intervalId === null) {
       // 시작 시간 새로 받기
-      setStartTime(new Date());
+      setStartTime(new Date()); // 얘가 문제!
       // setInterval 시작하고 인터벌 ID를 저장
       const id = window.setInterval(() => {
         const currentTime = new Date();
@@ -35,7 +35,7 @@ const Tictoc = () => {
   const timepause = () => {
     // setInterval을 중지하고 intervalId를 초기화 시킨다
     if (intervalId) {
-      // setStartTime(null);
+      setStartTime(null);
       clearInterval(intervalId);
       setIntervalId(null);
     }
@@ -45,17 +45,18 @@ const Tictoc = () => {
   }
 
   // 비동기처리... 수정해야할거같습니뎅
-  // useEffect(() => {
-  //   // 시작 시간이 변경될 때마다 경과 시간 계산
-  //   if (startTime) {
-  //     const interval = setInterval(() => {
-  //       const currentTime = new Date();
-  //       const elapsedMilliseconds = currentTime.getTime() - startTime.getTime();
-  //       setElapsedTime(elapsedMilliseconds);
-  //     }, 1000);
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [startTime]);
+  useEffect(() => {
+    // 시작 시간이 변경될 때마다 경과 시간 계산
+    if (startTime) {
+      const interval = setInterval(() => {
+        // 때마다 시간 가지고 와서 시간 차 계산하고 elapsedTime에 넘겨주기
+        const currentTime = new Date();
+        const elapsedMilliseconds = currentTime.getTime() - startTime.getTime();
+        setElapsedTime(elapsedMilliseconds);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [startTime]);
 
   // 밀리초를 시, 분, 초로 변환
   const millisecondsToTime = (milliseconds: number) => {
@@ -78,7 +79,7 @@ const Tictoc = () => {
       <h1>{today_is}</h1>
       <BsFillPlayCircleFill size='50' className='tictoc-btn' onClick={startTimer}/>
       <BsFillPauseCircleFill size='50' className='tictoc-btn' onClick={timepause}/>
-      {startTime && (
+      {elapsedTime != 0 && (
         <div>
           <h1>경과 시간:</h1>
           <h1>{formattedTime.hours} 시간 {formattedTime.minutes} 분 {formattedTime.seconds} 초</h1>
