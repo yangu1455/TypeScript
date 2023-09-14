@@ -22,18 +22,15 @@ const Tictoc = () => {
   // 있다면 거기에(수요일 데이터) 더한후 이걸 다시 0으로 바꿔주어야할거같다
   // 없다면 새로운 데이터(수요일 데이터)에 이걸 집어넣어주고 0으로 바꿔줘야함
   // 그리고 브라우저를 끄면 중지 + 저장 기능도 만들어야함
-  // 그리고... 가장 중요한... 브라우저를 끄지않고 
+  // 그리고... 브라우저를 끄지않고 계속 
   const [studyTime, setStudyTime] = useState<number>(0);
 
-  
   // 버튼 클릭 시 시간 측정 시작
   const startTimer = () => {
     // 시간 측정 중이 아니라면!
     if (intervalId === null) {
       // 공부 시작 시간 새로 받기
       setStartTime(new Date()); // 얘가 문제였음!
-      console.log('공부 시작 시간 들어옵니다.')
-      console.log(startTime) 
       // setInterval 시작하고 인터벌 ID를 저장
       const id = window.setInterval(() => {
         // 현재 시간 1초 당 계속 받아오기
@@ -52,11 +49,14 @@ const Tictoc = () => {
     if (intervalId) {
       // 총 공부시간에 기존에 들어간 공부시간 저장하기
       setStudyTime(elapsedTime)
-      console.log('공부시간 저장!')
-      console.log(studyTime) // 공부시간이 저장되긴하는데 일회용이다...
       setStartTime(null);
       clearInterval(intervalId);
       setIntervalId(null);
+      // 이제 저장을 해볼까
+      // 우선 localStorage API 사용해서 LocalStorage에 저장하기
+      localStorage.setItem("username", 'coenffl');
+      localStorage.setItem("date", new Date().toISOString());
+      localStorage.setItem("studyTime", elapsedTime.toString());
     } 
   }
 
@@ -96,7 +96,7 @@ const Tictoc = () => {
       <h1>{today_is}</h1>
       <BsFillPlayCircleFill size='50' className='tictoc-btn' onClick={startTimer}/>
       <BsFillPauseCircleFill size='50' className='tictoc-btn' onClick={timepause}/>
-      {elapsedTime != 0 && (
+      {elapsedTime >= 0 && (
         <div>
           <h1>경과 시간:</h1>
           <h1>{formattedTime.hours} 시간 {formattedTime.minutes} 분 {formattedTime.seconds} 초</h1>
