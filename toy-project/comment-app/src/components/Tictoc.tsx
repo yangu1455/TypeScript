@@ -23,7 +23,12 @@ const Tictoc = () => {
   // 없다면 새로운 데이터(수요일 데이터)에 이걸 집어넣어주고 0으로 바꿔줘야함
   // 그리고 브라우저를 끄면 중지 + 저장 기능도 만들어야함
   // 그리고... 브라우저를 끄지않고 계속 
-  const [studyTime, setStudyTime] = useState<number>(0);
+
+  // 저장된 공부시간 가져오기!
+  const savedStudyTime = localStorage.getItem('studyTime');
+  // 문자열을 number로 변환합니다.
+  const studyTime = savedStudyTime ? parseInt(savedStudyTime, 10) : 0;
+
 
   // 버튼 클릭 시 시간 측정 시작
   const startTimer = () => {
@@ -47,17 +52,33 @@ const Tictoc = () => {
   const timepause = () => {
     // setInterval을 중지하고 intervalId를 초기화 시킨다
     if (intervalId) {
-      // 총 공부시간에 기존에 들어간 공부시간 저장하기
-      setStudyTime(elapsedTime)
       setStartTime(null);
       clearInterval(intervalId);
       setIntervalId(null);
-      // 이제 저장을 해볼까
-      // 우선 localStorage API 사용해서 LocalStorage에 저장하기
-      localStorage.setItem("username", 'coenffl');
-      localStorage.setItem("date", new Date().toISOString());
-      localStorage.setItem("studyTime", elapsedTime.toString());
-    } 
+      
+      // 이제 해야할 것
+      // 기존에 사용하고 있던 StudyTime 대신 이 친구들을...
+      // 날짜를 받아서 어제와 같으면 같은 날짜의 데이터에 값을 저장해주고
+      // 저장한 날짜값 불러오기
+      
+      const storedData = localStorage.getItem('MyObject');
+      const parsedData = JSON.parse(storedData ? storedData : '{"username": "", "date": "0000-00-00", "studyTime": ""}');
+      const storedDate = parsedData.date;
+
+      // 만약 저장된 데이터의 날짜가 오늘과 같다면
+      if (storedDate === new Date().toISOString().slice(0, 10)) {
+        // 객체화해서 저장합시다!!!
+        const studyData = { "username": 'coenffl', "date": storedDate, "studyTime": elapsedTime.toString() };
+        const studyJsonString = JSON.stringify(studyData);
+        localStorage.setItem('myObject', studyJsonString);
+      } else {
+        // 다르다면 새로운 데이터를 저장한다.
+        const studyData = { "username": 'coenffl', "date": new Date().toISOString().slice(0, 10), "studyTime": elapsedTime.toString() };
+        const studyJsonString = JSON.stringify(studyData);
+        localStorage.setItem('myObject', studyJsonString);
+      } 
+    }
+      
   }
 
   // 비동기 처리
@@ -92,16 +113,18 @@ const Tictoc = () => {
   const formattedTime = millisecondsToTime(elapsedTime);
 
   return (
-    <div>
-      <h1>{today_is}</h1>
-      <BsFillPlayCircleFill size='50' className='tictoc-btn' onClick={startTimer}/>
-      <BsFillPauseCircleFill size='50' className='tictoc-btn' onClick={timepause}/>
+    <div className='tictoc'>
+      <h1 className='text-ac'>{today_is}</h1>
       {elapsedTime >= 0 && (
         <div>
-          <h1>경과 시간:</h1>
           <h1>{formattedTime.hours} 시간 {formattedTime.minutes} 분 {formattedTime.seconds} 초</h1>
         </div>
       )}
+      {intervalId === null ? (
+        <BsFillPlayCircleFill size='100' className='tictoc-btn' onClick={startTimer}/>
+      ) : (
+        <BsFillPauseCircleFill size='100' className='tictoc-btn' onClick={timepause}/>
+      )} 
     </div>
   );
 };
