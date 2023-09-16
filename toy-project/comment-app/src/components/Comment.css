@@ -87,6 +87,6 @@
     border-color: black;
   }
   .comment-edit-input {
-    border: 1px black solid;
+    border: 1px rgb(173, 173, 173) solid;
   }
 }
