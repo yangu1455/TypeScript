@@ -2,9 +2,34 @@
 import { useState, useEffect, useRef } from 'react';
 import { commentType } from "../types";
 import './comment.css'
+import axios from 'axios';
 
 const dateNow = new Date();
 const today = dateNow.toISOString().slice(0, 10);
+
+const response = await axios.get('http://127.0.0.1:8000/api/comments/2');
+console.log(response);
+
+// const apiUrl = 'http://127.0.0.1:8000/';
+
+// // 댓글 데이터를 가져오는 함수
+// async function fetchComments() {
+//   try {
+//     const response = await fetch(apiUrl);
+//     if (!response.ok) {
+//       throw new Error("데이터를 가져오는 데 실패했습니다.");
+//     }
+
+//     const comments = await response.json();
+//     // 가져온 댓글 데이터를 처리하거나 표시합니다.
+//     console.log(comments);
+//   } catch (error) {
+//     console.error("오류 발생:", error);
+//   }
+// }
+
+// // 댓글 데이터 가져오기
+// fetchComments();
 
 
 // 수정이 필요하다.
@@ -78,8 +103,8 @@ const Comment = (): JSX.Element => {
     // 새로운 댓글을 기존 댓글 목록에 추가
     // 이런식으로 넣어주는거같은데 기존에 json을 이용하고 있었기 때문에 그리 어렵진 않을거같고...
     // 문제는 백에서 데이터를 데려오는 것...!
-    // setComments([...comments, newComment]);
-    // setNewText('');
+    setComments([...comments, newComment]);
+    setNewText('');
 
     // // JSON 파일로 업데이트합니다.
     // fetch('/src/comments.json', {
@@ -199,14 +224,14 @@ const Comment = (): JSX.Element => {
               <div>
                 {editingCommentId === comment.id ? (
                   // 수정 모드 일때
-                  <div>
-                    <button onClick={handleConfirmEdit}>확인</button>
-                    <button onClick={() => setEditingCommentId(null)}>취소</button>
-                    <button onClick={() => deleteCommentSubmit(comment.id)}>삭제</button>
+                  <div className='comment-btn-container'>
+                    <button className='comment-btn' onClick={handleConfirmEdit}>확인</button>
+                    <button className='comment-btn' onClick={() => setEditingCommentId(null)}>취소</button>
+                    <button className='comment-btn' onClick={() => deleteCommentSubmit(comment.id)}>삭제</button>
                   </div>
                 ) : ( 
                   // 수정 모드 아닐 때
-                  <div>
+                  <div className='comment-btns'>
                     <button onClick={() => editCommentSubmit(comment.id, comment.text)}>수정</button>
                     <button onClick={() => deleteCommentSubmit(comment.id)}>삭제</button>
                   </div>
